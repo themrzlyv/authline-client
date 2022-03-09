@@ -1,8 +1,26 @@
 import React from 'react';
+import { useQuery } from 'react-query';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { setPosts } from './App.Slice';
 import Layout from './components/Layout';
+import API from './infrastructure/Global/axios/axios';
+import { RootState } from './infrastructure/Global/redux/Store';
+
+const fetchPosts = async () => {
+  return API.get('/post').then((res) => res.data);
+};
 
 function App() {
+  const dispatch = useDispatch();
+  const { posts } = useSelector((state: RootState) => state.reducer.app);
+  const { data, isLoading } = useQuery('queryID', fetchPosts, {
+    onSuccess: (data) => {
+      dispatch(setPosts(data));
+    },
+  });
+
+  console.log(posts);
   return (
     <Layout>
       <BrowserRouter>
