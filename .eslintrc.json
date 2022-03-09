@@ -1,0 +1,43 @@
+{
+  "env": {
+    "node": true,
+    "commonjs": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2015
+  },
+  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "globals": {
+    "window": true,
+    "document": true,
+    "localStorage": true,
+    "FormData": true,
+    "FileReader": true,
+    "Blob": true,
+    "navigator": true
+  },
+  "rules": {
+    "semi": ["error", "always"],
+    "@typescript-eslint/no-var-requires": 0,
+    "react/prop-types": 0,
+    "jsx-a11y/anchor-is-valid": 0,
+    "jsx-a11y/alt-text": 0,
+    "react/jsx-pascal-case": [0],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx", ".ts", "tsx"]
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": "./webpack.config.js",
+    "import/extensions": [".js", ".jsx"]
+  }
+}
