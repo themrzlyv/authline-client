@@ -1,8 +1,6 @@
 import React from 'react';
 
-type Props = {};
-
-function NotFound(props: Props) {
+function NotFound() {
   return <div>NotFound</div>;
 }
 

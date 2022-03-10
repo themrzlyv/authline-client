@@ -1,37 +1,17 @@
 import React from 'react';
-import { useQuery } from 'react-query';
-import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { setPosts } from './App.Slice';
+import { BrowserRouter } from 'react-router-dom';
 import Layout from './components/Layout';
-import API from './infrastructure/Global/axios/axios';
-import { RootState } from './infrastructure/Global/redux/Store';
+import { mainRoutes } from './router/mainRoutes';
+import RenderRoutes from './router/RenderRoutes';
 
-const fetchPosts = async () => {
-  return API.get('/post').then((res) => res.data);
-};
-
-function App() {
-  const dispatch = useDispatch();
-  const { posts } = useSelector((state: RootState) => state.reducer.app);
-  const { data, isLoading } = useQuery('queryID', fetchPosts, {
-    onSuccess: (data) => {
-      dispatch(setPosts(data));
-    },
-  });
-
-  console.log(posts);
+const App: React.FC = () => {
   return (
     <Layout>
       <BrowserRouter>
-        <Routes>
-          <Route index element={<h4>home page</h4>} />
-          <Route path="/about" element={<h4>about page</h4>} />
-          <Route path="/contact" element={<h4>contact page</h4>} />
-        </Routes>
+        <RenderRoutes routes={mainRoutes} />
       </BrowserRouter>
     </Layout>
   );
-}
+};
 
 export default App;
