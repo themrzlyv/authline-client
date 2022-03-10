@@ -4,7 +4,10 @@ import rootReducer from './rootReducer';
 
 export const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(reduxLogger),
+  middleware: (getDefaultMiddleware) =>
+    process.env.NODE_ENV !== 'production'
+      ? getDefaultMiddleware().concat(reduxLogger)
+      : getDefaultMiddleware(),
   reducer: {
     reducer: rootReducer,
   },
