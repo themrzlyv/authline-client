@@ -1,22 +1,22 @@
-import { Button, Grid, TextField, Typography } from '@mui/material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Grid } from '@mui/material';
 import { useFormik } from 'formik';
 import React from 'react';
-import * as yup from 'yup';
-import HeaderTextUi from '../../components/HeaderTextUi';
-import InputUi from '../../components/InputUi';
-
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ButtonUi from '../../components/ButtonUi';
-
-const validationSchema = yup.object({
-  email: yup.string().email('Enter a valid email').required('Email is required'),
-  password: yup
-    .string()
-    .min(6, 'Password should be of minimum 8 characters length')
-    .required('Password is required'),
-});
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import ButtonUi from '../../../components/ButtonUi';
+import HeaderTextUi from '../../../components/HeaderTextUi';
+import InputUi from '../../../components/InputUi';
+import { QueryId } from '../../../infrastructure/data/Queries/QueryId';
+import { validationSchema } from '../../../infrastructure/data/YupSchemas/loginSchema';
+import { authSelector } from '../../../infrastructure/selectors';
+import { loginUser } from '../common/redux/Auth.slice';
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoading } = useSelector(authSelector);
 
   const formik = useFormik({
     initialValues: {
@@ -25,7 +25,9 @@ const Login = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(JSON.stringify(values, null, 2));
+      dispatch(loginUser({ ...values }));
+      toast.success('Login Successful', { toastId: QueryId.LOGIN_SUCCESS });
+      navigate('/');
     },
   });
 
@@ -48,6 +50,7 @@ const Login = () => {
             id="email"
             name="email"
             label="Email"
+            type="text"
           />
           <InputUi
             fullWidth
@@ -60,7 +63,13 @@ const Login = () => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
-          <ButtonUi color="primary" type="submit" variant="contained" label="Sign in" />
+          <ButtonUi
+            loading={isLoading ? 1 : 0}
+            color="primary"
+            type="submit"
+            variant="contained"
+            label="Sign in"
+          />
         </form>
       </Grid>
     </Grid>

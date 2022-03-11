@@ -1,8 +1,10 @@
 import React from 'react';
 import { iRoute } from '../infrastructure/@types/router-types';
-import Home from '../ui/Home';
-import Login from '../ui/Login';
-import NotFound from '../ui/NotFound';
+
+const Home = React.lazy(() => import('../ui/Home'));
+const Auth = React.lazy(() => import('../ui/Auth'));
+const Profile = React.lazy(() => import('../ui/Profile'));
+const NotFound = React.lazy(() => import('../ui/NotFound'));
 
 export const mainRoutes: iRoute[] = [
   {
@@ -12,9 +14,14 @@ export const mainRoutes: iRoute[] = [
     index: true,
   },
   {
-    path: '/login',
-    name: 'login',
-    element: <Login />,
+    path: '/auth/*',
+    name: 'auth',
+    element: <Auth />,
+  },
+  {
+    path: '/profile/*',
+    name: 'profile',
+    element: <Profile />,
   },
   {
     path: '*',
