@@ -4,13 +4,7 @@ import React from 'react';
 const PreLoader = () => {
   return (
     <Grid item xs={12}>
-      <Box
-        width="100%"
-        height="80vh"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
+      <Box width="100%" height="80vh" display="flex" alignItems="center" justifyContent="center">
         <CircularProgress />
       </Box>
     </Grid>

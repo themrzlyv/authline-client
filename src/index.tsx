@@ -7,17 +7,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import App from './App';
 import { store } from './infrastructure/Global/redux/Store';
 import queryClient from './infrastructure/Global/rQuery/queryClient';
-import Storage from './infrastructure/Global/Storage';
 import reportWebVitals from './reportWebVitals';
-import { fetchUser } from './ui/Auth/common/redux/Auth.slice';
 
 const RootComponent = () => {
-  React.useEffect(() => {
-    const token = Storage.getItem('jwt-token');
-    if (token) {
-      store.dispatch(fetchUser());
-    }
-  }, []);
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
