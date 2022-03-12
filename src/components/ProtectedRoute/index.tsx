@@ -1,17 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
+import Storage from '../../infrastructure/Global/Storage';
 import { authSelector } from '../../infrastructure/selectors';
+import PreLoader from '../PreLoader';
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  const { user, isLoading } = useSelector(authSelector);
+  const { user } = useSelector(authSelector);
+  const token = Storage.getItem('jwt-token');
   const location = useLocation();
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (user) {
+  if (user || token) {
     return <Navigate to="/" state={{ from: location }} replace />;
   }
 

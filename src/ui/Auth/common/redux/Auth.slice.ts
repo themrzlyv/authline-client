@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 import { iAuthSlice, iUserType } from '../../../../infrastructure/@types/userType';
+import { ErrorQuery } from '../../../../infrastructure/data/Queries/errorQueries';
+import { QueryId } from '../../../../infrastructure/data/Queries/QueryId';
 import UserReq from '../../../../infrastructure/Global/APIrequests/UserReq';
 
 const initialState: iAuthSlice = {
@@ -9,13 +12,13 @@ const initialState: iAuthSlice = {
 };
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async (_, { rejectWithValue }) => {
-  return UserReq.getUser(rejectWithValue);
+  return await UserReq.getUser(rejectWithValue);
 });
 
 export const loginUser = createAsyncThunk(
   'user/loginUser',
   async (data: { email: string; password: string }, { rejectWithValue }) => {
-    return UserReq.loginUser(data, rejectWithValue);
+    return await UserReq.loginUser(data, rejectWithValue);
   },
 );
 
@@ -23,9 +26,6 @@ const authSlice = createSlice({
   name: 'Auth',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<iUserType>) => {
-      state.user = action.payload;
-    },
     logOutUser: (state) => {
       state.user = null;
     },
@@ -47,6 +47,7 @@ const authSlice = createSlice({
       state.user = null;
       state.error = action.payload;
       state.isLoading = false;
+      toast.error(action.payload, { toastId: ErrorQuery.login });
     });
 
     builder.addCase(loginUser.pending, (state) => {
@@ -60,15 +61,17 @@ const authSlice = createSlice({
       }
       state.isLoading = false;
       state.error = null;
+      toast.success('Logged in successfully', { toastId: QueryId.LOGIN_SUCCESS });
     });
     builder.addCase(loginUser.rejected, (state, action: PayloadAction<any>) => {
       state.user = null;
       state.error = action.payload;
       state.isLoading = false;
+      toast.error(action.payload, { toastId: ErrorQuery.login });
     });
   },
 });
 
-export const { setUser, logOutUser } = authSlice.actions;
+export const { logOutUser } = authSlice.actions;
 
 export default authSlice.reducer;

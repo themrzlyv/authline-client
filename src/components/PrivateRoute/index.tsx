@@ -2,13 +2,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { authSelector } from '../../infrastructure/selectors';
+import PreLoader from '../PreLoader';
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   const { user, isLoading } = useSelector(authSelector);
   const location = useLocation();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <PreLoader />;
   }
 
   if (!user) {

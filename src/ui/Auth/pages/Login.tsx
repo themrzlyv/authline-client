@@ -3,19 +3,15 @@ import { Grid } from '@mui/material';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import ButtonUi from '../../../components/ButtonUi';
 import HeaderTextUi from '../../../components/HeaderTextUi';
 import InputUi from '../../../components/InputUi';
-import { QueryId } from '../../../infrastructure/data/Queries/QueryId';
 import { validationSchema } from '../../../infrastructure/data/YupSchemas/loginSchema';
 import { authSelector } from '../../../infrastructure/selectors';
 import { loginUser } from '../common/redux/Auth.slice';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { isLoading } = useSelector(authSelector);
 
   const formik = useFormik({
@@ -26,8 +22,6 @@ const Login = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       dispatch(loginUser({ ...values }));
-      toast.success('Login Successful', { toastId: QueryId.LOGIN_SUCCESS });
-      navigate('/');
     },
   });
 

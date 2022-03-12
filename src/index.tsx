@@ -7,29 +7,37 @@ import 'react-toastify/dist/ReactToastify.css';
 import App from './App';
 import { store } from './infrastructure/Global/redux/Store';
 import queryClient from './infrastructure/Global/rQuery/queryClient';
+import Storage from './infrastructure/Global/Storage';
 import reportWebVitals from './reportWebVitals';
 import { fetchUser } from './ui/Auth/common/redux/Auth.slice';
 
-store.dispatch(fetchUser());
+const RootComponent = () => {
+  React.useEffect(() => {
+    const token = Storage.getItem('jwt-token');
+    if (token) {
+      store.dispatch(fetchUser());
+    }
+  }, []);
+  return (
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <ToastContainer
+          theme="colored"
+          position="bottom-right"
+          autoClose={2000}
+          transition={Slide}
+          hideProgressBar
+          closeOnClick
+          pauseOnFocusLoss
+          pauseOnHover
+        />
+      </QueryClientProvider>
+    </Provider>
+  );
+};
 
-ReactDOM.render(
-  <Provider store={store}>
-    <QueryClientProvider client={queryClient}>
-      <App />
-      <ToastContainer
-        theme="colored"
-        position="bottom-right"
-        autoClose={2000}
-        transition={Slide}
-        hideProgressBar
-        closeOnClick
-        pauseOnFocusLoss
-        pauseOnHover
-      />
-    </QueryClientProvider>
-  </Provider>,
-  document.getElementById('root'),
-);
+ReactDOM.render(<RootComponent />, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
