@@ -1,63 +1,19 @@
-import { Avatar, Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import Logo from '../../../../assets/racing.png';
+import { useMediaQuery } from 'react-responsive';
+import { DeviceSize } from './common/data';
+import LogoPart from './partials/LogoPart';
+import MenuPart from './partials/MenuPart/MenuPart';
+import MobileMenuPart from './partials/MenuPart/MobileMenuPart';
+
 
 const NavBar = () => {
-  const navLinks = [
-    {
-      name: 'Home',
-      path: '/',
-    },
-    {
-      name: 'About',
-      path: '/about',
-    },
-    {
-      name: 'Contact',
-      path: '/contact',
-    },
-  ];
+  const isMobile = useMediaQuery({ maxWidth: DeviceSize.laptop });
+
   return (
-    <Grid container>
-      <Grid
-        item
-        xs={3}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        borderRight={1}
-        borderColor="grey.300"
-      >
-        <Avatar src={Logo} sx={{ width: 34, height: 34 }} />
-        <Typography
-          variant="h5"
-          fontWeight="bold"
-          color="black"
-          component="a"
-          href="/"
-          textTransform="uppercase"
-          sx={{ textDecoration: 'none' }}
-          marginLeft={1}
-        >
-          Autlines
-        </Typography>
-      </Grid>
-      <Grid item xs={9}>
-        <Grid container>
-          <Grid item xs={8} display="flex" justifyContent="space-evenly">
-            {navLinks.map((link) => (
-              <NavLink to={link.path} key={link.name} style={{ textDecoration: 'none' }}>
-                <Typography variant="subtitle2" fontWeight="bold" color="black">
-                  {link.name}
-                </Typography>
-              </NavLink>
-            ))}
-          </Grid>
-          <Grid item xs={2}></Grid>
-          <Grid item xs={2}></Grid>
-        </Grid>
-      </Grid>
+    <Grid container alignItems="center" justifyContent="space-between">
+      <LogoPart />
+      {isMobile ? <MobileMenuPart /> : <MenuPart />}
     </Grid>
   );
 };
