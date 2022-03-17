@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClientProvider } from 'react-query';
@@ -8,22 +9,26 @@ import App from './App';
 import { store } from './infrastructure/Global/redux/Store';
 import queryClient from './infrastructure/Global/rQuery/queryClient';
 import reportWebVitals from './reportWebVitals';
+import { theme } from './Theme/theme';
+
 
 const RootComponent = () => {
   return (
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-        <App />
-        <ToastContainer
-          theme="colored"
-          position="bottom-right"
-          autoClose={2000}
-          transition={Slide}
-          hideProgressBar
-          closeOnClick
-          pauseOnFocusLoss
-          pauseOnHover
-        />
+        <ThemeProvider theme={theme}>
+          <App />
+          <ToastContainer
+            theme="colored"
+            position="bottom-right"
+            autoClose={2000}
+            transition={Slide}
+            hideProgressBar
+            closeOnClick
+            pauseOnFocusLoss
+            pauseOnHover
+          />
+        </ThemeProvider>
       </QueryClientProvider>
     </Provider>
   );

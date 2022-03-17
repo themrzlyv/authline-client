@@ -4,11 +4,13 @@ import { iAuthSlice, iUserType } from '../../../../infrastructure/@types/userTyp
 import { ErrorQuery } from '../../../../infrastructure/data/Queries/errorQueries';
 import { QueryId } from '../../../../infrastructure/data/Queries/QueryId';
 import UserReq from '../../../../infrastructure/Global/APIrequests/UserReq';
+import Storage from '../../../../infrastructure/Global/Storage';
 
 const initialState: iAuthSlice = {
   user: null,
   isLoading: false,
   error: null,
+  loginModal: false,
 };
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async (_, { rejectWithValue }) => {
@@ -28,6 +30,10 @@ const authSlice = createSlice({
   reducers: {
     logOutUser: (state) => {
       state.user = null;
+      Storage.removeItem('jwt-token');
+    },
+    toggleLoginModal: (state) => {
+      state.loginModal = !state.loginModal;
     },
   },
   extraReducers: (builder) => {
@@ -61,6 +67,7 @@ const authSlice = createSlice({
       }
       state.isLoading = false;
       state.error = null;
+      state.loginModal = false;
       toast.success('Logged in successfully', { toastId: QueryId.LOGIN_SUCCESS });
     });
     builder.addCase(loginUser.rejected, (state, action: PayloadAction<any>) => {
@@ -72,6 +79,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { logOutUser } = authSlice.actions;
+export const { logOutUser, toggleLoginModal } = authSlice.actions;
 
 export default authSlice.reducer;

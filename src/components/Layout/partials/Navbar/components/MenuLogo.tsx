@@ -9,7 +9,7 @@ const MenuLogo = () => {
       <Typography
         variant="h5"
         fontWeight="bold"
-        color="black"
+        color="primary"
         component="a"
         href="/"
         textTransform="uppercase"

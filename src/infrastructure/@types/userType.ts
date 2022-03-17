@@ -15,4 +15,5 @@ export interface iAuthSlice {
   user: iUserType | null;
   isLoading: boolean;
   error: string | null;
+  loginModal: boolean;
 }

@@ -1,4 +1,5 @@
 import { AxiosError } from 'axios';
+import { iRegistrationUserType } from '../../@types/registrationUserTypes';
 import { iUserType } from '../../@types/userType';
 import API from '../axios/axios';
 import Storage from '../Storage';
@@ -31,6 +32,17 @@ export default class UserReq {
       return res.data.user;
     } catch (error) {
       return rejectWithValue((error as AxiosError)?.response?.data?.error);
+    }
+  }
+
+  public static async registerUser(data: iRegistrationUserType): Promise<void | AxiosError> {
+    try {
+      const res = await API.post('auth/registration', {
+        data,
+      });
+      return res.data;
+    } catch (error) {
+      return (error as AxiosError)?.response?.data?.error;
     }
   }
 }

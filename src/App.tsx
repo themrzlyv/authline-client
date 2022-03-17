@@ -8,6 +8,7 @@ import { authSelector } from './infrastructure/selectors';
 import { mainRoutes } from './router/mainRoutes';
 import RenderRoutes from './router/RenderRoutes';
 import { fetchUser } from './ui/Auth/common/redux/Auth.slice';
+import Login from './ui/Auth/components/Login';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const App: React.FC = () => {
       <Layout>
         <Suspense fallback={<PreLoader />}>
           <RenderRoutes routes={mainRoutes} />
+          <Login />
         </Suspense>
       </Layout>
     </BrowserRouter>

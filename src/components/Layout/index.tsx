@@ -10,14 +10,17 @@ type Props = {
 
 const Layout = (props: Props) => {
   return (
-    <Container maxWidth="lg">
-      <Grid container display="flex" flexDirection="column">
-        <Header />
-        <NavBar />
-        {props.children}
-        <Footer />
-      </Grid>
-    </Container>
+    <Grid
+      container
+      display="flex"
+      flexDirection="column"
+      bgcolor="grey.100"
+    >
+      <Header />
+      <NavBar />
+      {props.children}
+      <Footer />
+    </Grid>
   );
 };
 

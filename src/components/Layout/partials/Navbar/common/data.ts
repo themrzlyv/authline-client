@@ -31,9 +31,4 @@ export const menuLinks = [
   },
 ];
 
-export const DeviceSize = {
-  mobile: 768,
-  tablet: 992,
-  laptop: 1160,
-  desktop: 2024,
-};
+

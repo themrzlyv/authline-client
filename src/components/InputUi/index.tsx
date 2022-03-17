@@ -11,6 +11,9 @@ type Props = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   error: boolean;
   helperText: string;
+  InputLabelProps?: {
+    shrink: boolean;
+  };
 };
 
 const InputUi = (props: Props) => {

@@ -1,4 +1,4 @@
-import { IconButton, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import React from 'react';
 
 type Props = {
@@ -8,16 +8,12 @@ type Props = {
 
 const HeaderTextUi = (props: Props) => {
   return (
-    <>
-      <Typography variant="h6" my={0}>
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Typography variant="h6" sx={{ marginRight: 1 }}>
         {props.label}
-        {props.icon && (
-          <IconButton sx={{ marginLeft: '0.1em' }} edge="end">
-            {props.icon}
-          </IconButton>
-        )}
       </Typography>
-    </>
+      {props.icon && props.icon}
+    </Box>
   );
 };
 

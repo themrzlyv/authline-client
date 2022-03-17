@@ -1,18 +1,21 @@
+import { NavigateNextTwoTone } from '@mui/icons-material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ButtonUi from '../../../components/ButtonUi';
-import HeaderTextUi from '../../../components/HeaderTextUi';
-import InputUi from '../../../components/InputUi';
-import { validationSchema } from '../../../infrastructure/data/YupSchemas/loginSchema';
-import { authSelector } from '../../../infrastructure/selectors';
-import { loginUser } from '../common/redux/Auth.slice';
+import { Navigate, useNavigate } from 'react-router-dom';
+import ButtonUi from '../../../../components/ButtonUi';
+import InputUi from '../../../../components/InputUi';
+import ModalUi from '../../../../components/ModalUi';
+import { validationSchema } from '../../../../infrastructure/data/YupSchemas/loginSchema';
+import { authSelector } from '../../../../infrastructure/selectors';
+import { loginUser, toggleLoginModal } from '../../common/redux/Auth.slice';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { isLoading } = useSelector(authSelector);
+  const navigate = useNavigate();
+  const { isLoading, loginModal } = useSelector(authSelector);
 
   const formik = useFormik({
     initialValues: {
@@ -25,12 +28,19 @@ const Login = () => {
     },
   });
 
+  const goToRegister = () => {
+    dispatch(toggleLoginModal());
+    navigate('/auth/registration');
+  };
+
   return (
-    <Grid container>
-      <Grid item xs={8} mx="auto" mt={4} display="flex" justifyContent="center">
-        <HeaderTextUi label="Sign in" icon={<ArrowForwardIcon />} />
-      </Grid>
-      <Grid item xs={12} display="flex" justifyContent="center" mb={4}>
+    <ModalUi
+      open={loginModal}
+      onClose={() => dispatch(toggleLoginModal())}
+      headerLabel="Sign in"
+      headerIcon={<ArrowForwardIcon />}
+    >
+      <Grid item xs={12} display="flex" justifyContent="center" mb={2}>
         <form
           onSubmit={formik.handleSubmit}
           style={{ width: '30em', display: 'flex', flexDirection: 'column' }}
@@ -66,7 +76,19 @@ const Login = () => {
           />
         </form>
       </Grid>
-    </Grid>
+      <Grid item xs={12} display="flex" alignItems="center">
+        <Typography variant="caption" color="black">
+          Don&apos;t have an account?
+        </Typography>
+        <ButtonUi
+          color="error"
+          variant="text"
+          label="Sign up"
+          style={{ marginLeft: '1em' }}
+          onClick={goToRegister}
+        />
+      </Grid>
+    </ModalUi>
   );
 };
 
