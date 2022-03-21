@@ -17,6 +17,6 @@ const layoutSlice = createSlice({
   },
 });
 
-export const { toggleMenuButton,  } = layoutSlice.actions;
+export const { toggleMenuButton } = layoutSlice.actions;
 
 export default layoutSlice.reducer;

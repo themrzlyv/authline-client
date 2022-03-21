@@ -1,4 +1,5 @@
 import { Grid, Typography } from '@mui/material';
+import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useMutation } from 'react-query';
@@ -12,17 +13,18 @@ import { registrationSchema } from '../../../../infrastructure/data/YupSchemas/r
 import UserReq from '../../../../infrastructure/Global/APIrequests/UserReq';
 import { toggleLoginModal } from '../../common/redux/Auth.slice';
 
-const Registration = () => {
+const Registration: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { mutate, isLoading, data, isError, error } = useMutation(UserReq.registerUser, {
+  const { mutate, isLoading } = useMutation(UserReq.registerUser, {
     onSuccess: () => {
       toast.success('Registration successful', { toastId: 'registrationSuccess' });
       navigate('/');
+      dispatch(toggleLoginModal());
     },
-    onError: () => {
-      toast.error('Registration failed', { toastId: 'registrationError' });
+    onError: (error) => {
+      toast.error((error as AxiosError).message, { toastId: 'registrationError' });
     },
   });
 
@@ -45,18 +47,11 @@ const Registration = () => {
     dispatch(toggleLoginModal());
   };
 
-  console.log(data);
-
   return (
     <Grid container gap={1}>
       <Grid item xs={8} mx="auto" display="flex" py={1} justifyContent="center">
         <HeaderTextUi label="Sign up" />
       </Grid>
-      {isError && (
-        <Grid item xs={8} mx="auto" display="flex" py={1} justifyContent="center">
-          {error}
-        </Grid>
-      )}
       <Grid item xs={5} mx="auto" display="flex">
         <form
           onSubmit={formik.handleSubmit}

@@ -38,11 +38,11 @@ export default class UserReq {
   public static async registerUser(data: iRegistrationUserType): Promise<void | AxiosError> {
     try {
       const res = await API.post('auth/registration', {
-        data,
+        ...data,
       });
       return res.data;
     } catch (error) {
-      return (error as AxiosError)?.response?.data?.error;
+      throw new Error((error as AxiosError)?.response?.data?.error);
     }
   }
 }

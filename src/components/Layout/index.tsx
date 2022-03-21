@@ -10,12 +10,7 @@ type Props = {
 
 const Layout = (props: Props) => {
   return (
-    <Grid
-      container
-      display="flex"
-      flexDirection="column"
-      bgcolor="grey.100"
-    >
+    <Grid container display="flex" flexDirection="column" bgcolor="grey.100">
       <Header />
       <NavBar />
       {props.children}

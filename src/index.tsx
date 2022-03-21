@@ -11,7 +11,6 @@ import queryClient from './infrastructure/Global/rQuery/queryClient';
 import reportWebVitals from './reportWebVitals';
 import { theme } from './Theme/theme';
 
-
 const RootComponent = () => {
   return (
     <Provider store={store}>
