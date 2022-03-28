@@ -1,13 +1,15 @@
-export const menuLinks = [
+import { iNavLink } from "../../../common/types";
+
+export const menuLinks: iNavLink[] = [
   {
     name: 'Home',
     path: '/',
     key: 'home',
   },
   {
-    name: 'Models',
-    path: '/models',
-    key: 'models',
+    name: 'Brands',
+    path: '/brands',
+    key: 'brands',
   },
   {
     name: 'Categories',
@@ -23,10 +25,5 @@ export const menuLinks = [
     name: 'Contact',
     path: '/contact',
     key: 'contact',
-  },
-  {
-    name: 'Profile',
-    path: '/profile',
-    key: 'profile',
   },
 ];

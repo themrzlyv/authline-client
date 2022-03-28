@@ -6,12 +6,14 @@ import { AppBar, Button, Grid, IconButton, Tab, Tabs, Toolbar, Typography } from
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import useControlNavLinks from '../../../../infrastructure/hooks/useControlNavLinks';
 import { useRouter } from '../../../../infrastructure/hooks/useRouter';
 import { authSelector } from '../../../../infrastructure/selectors';
 import { logOutUser, toggleLoginModal } from '../../../../ui/Auth/common/redux/Auth.slice';
 import { DeviceSize } from '../../common/data';
 import { toggleMenuButton } from '../../common/redux/Layout.slice';
+import { iNavLink } from '../../common/types';
 import { menuLinks } from './common/data';
 import MenuLogo from './components/MenuLogo';
 import SideBar from './SideBar';
@@ -19,9 +21,11 @@ import SideBar from './SideBar';
 const NavBar = () => {
   const dispatch = useDispatch();
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.laptop });
-  const {location} = useRouter();
+  const { location } = useRouter();
 
   const { user } = useSelector(authSelector);
+
+  const { navLinks } = useControlNavLinks({ links: menuLinks });
 
   return (
     <>
@@ -61,7 +65,7 @@ const NavBar = () => {
             {!isMobile && (
               <Grid item lg={7} display="flex" alignItems="center" justifyContent="space-evenly">
                 <Tabs textColor="primary" indicatorColor="primary" value={location.pathname}>
-                  {menuLinks.map((link) => (
+                  {navLinks.map((link: iNavLink) => (
                     <Tab
                       value={link.path}
                       key={link.name}

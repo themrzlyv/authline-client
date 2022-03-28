@@ -7,6 +7,7 @@ type Props = {
   color?: 'inherit' | 'error' | 'primary' | 'secondary' | 'info' | 'success' | 'warning';
   variant?: 'text' | 'outlined' | 'contained';
   type?: 'button' | 'submit' | 'reset';
+  size?: 'small' | 'medium' | 'large';
   style?: React.CSSProperties;
   fullWidth?: boolean;
   onClick?: () => void;

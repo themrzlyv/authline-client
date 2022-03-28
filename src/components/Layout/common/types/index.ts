@@ -3,3 +3,9 @@ export interface iLayoutSliceState {
     isOpen: boolean;
   };
 }
+
+export interface iNavLink {
+  name: string;
+  path: string;
+  key: string;
+}

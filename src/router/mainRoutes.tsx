@@ -4,6 +4,7 @@ import { iRoute } from '../infrastructure/@types/router-types';
 const Home = React.lazy(() => import('../ui/Home'));
 const Auth = React.lazy(() => import('../ui/Auth'));
 const Profile = React.lazy(() => import('../ui/Profile'));
+const Brands = React.lazy(() => import('../ui/Brands'));
 const NotFound = React.lazy(() => import('../ui/NotFound'));
 
 export const mainRoutes: iRoute[] = [
@@ -12,6 +13,11 @@ export const mainRoutes: iRoute[] = [
     name: 'home',
     component: () => <Home />,
     exact: true,
+  },
+  {
+    path: '/brands',
+    name: 'brands',
+    component: () => <Brands />,
   },
   {
     path: '/auth',

@@ -11,23 +11,24 @@ import {
   ListItemIcon,
   ListItemText,
   ListSubheader,
-  Typography
+  Typography,
 } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import useControlNavLinks from '../../../../infrastructure/hooks/useControlNavLinks';
 import { useRouter } from '../../../../infrastructure/hooks/useRouter';
 import { layoutSelector } from '../../../../infrastructure/selectors';
 import { toggleMenuButton } from '../../common/redux/Layout.slice';
 import { menuLinks } from './common/data';
 import MenuLogo from './components/MenuLogo';
 
-
-
 const SideBar = () => {
   const dispatch = useDispatch();
   const { menu } = useSelector(layoutSelector);
   const { location } = useRouter();
+  const { navLinks } = useControlNavLinks({ links: menuLinks });
+
   return (
     <>
       <Drawer open={menu.isOpen} onClose={() => dispatch(toggleMenuButton())}>
@@ -52,7 +53,7 @@ const SideBar = () => {
                 </ListSubheader>
               }
             >
-              {menuLinks.map((link) => (
+              {navLinks.map((link) => (
                 <ListItem
                   key={link.key}
                   disablePadding

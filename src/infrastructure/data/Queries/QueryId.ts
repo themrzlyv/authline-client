@@ -1,4 +1,5 @@
 export const QueryId = {
   LOGIN_SUCCESS: 'LOGIN_SUCCESS',
   GET_USER: 'GET_USER',
+  GET_CAR_BRANDS: 'GET_CAR_BRANDS',
 };
