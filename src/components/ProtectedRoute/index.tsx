@@ -1,19 +1,21 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import Storage from '../../infrastructure/Global/Storage';
 import { authSelector } from '../../infrastructure/selectors';
 
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+interface iProp {
+  path: string;
+  Component: React.ComponentType<unknown>;
+}
+
+const ProtectedRoute: React.FC<iProp> = ({ Component, path }) => {
   const { user } = useSelector(authSelector);
   const token = Storage.getItem('jwt-token');
-  const location = useLocation();
 
-  if (user || token) {
-    return <Navigate to="/" state={{ from: location }} replace />;
-  }
-
-  return children;
+  return (
+    <Route path={path} render={() => (!user || !token ? <Component /> : <Redirect to="/" />)} />
+  );
 };
 
 export default ProtectedRoute;

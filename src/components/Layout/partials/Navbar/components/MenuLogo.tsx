@@ -16,7 +16,7 @@ const MenuLogo = () => {
         sx={{ textDecoration: 'none' }}
         marginLeft={1}
       >
-        Autlines
+        Authline
       </Typography>
     </>
   );

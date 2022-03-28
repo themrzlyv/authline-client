@@ -4,23 +4,23 @@ import { useFormik } from 'formik';
 import React from 'react';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ButtonUi from '../../../../components/ButtonUi';
 import HeaderTextUi from '../../../../components/HeaderTextUi';
 import InputUi from '../../../../components/InputUi';
 import { registrationSchema } from '../../../../infrastructure/data/YupSchemas/registrationSchema';
 import UserReq from '../../../../infrastructure/Global/APIrequests/UserReq';
+import { useRouter } from '../../../../infrastructure/hooks/useRouter';
 import { toggleLoginModal } from '../../common/redux/Auth.slice';
 
 const Registration: React.FC = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { push } = useRouter();
 
   const { mutate, isLoading } = useMutation(UserReq.registerUser, {
     onSuccess: () => {
       toast.success('Registration successful', { toastId: 'registrationSuccess' });
-      navigate('/');
+      push('/');
       dispatch(toggleLoginModal());
     },
     onError: (error) => {

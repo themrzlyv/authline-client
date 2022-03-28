@@ -1,22 +1,37 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Navigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, Route } from 'react-router-dom';
 import { authSelector } from '../../infrastructure/selectors';
+import { toggleLoginModal } from '../../ui/Auth/common/redux/Auth.slice';
 import PreLoader from '../PreLoader';
 
-const PrivateRoute = ({ children }: { children: JSX.Element }) => {
+interface iProp {
+  path: string;
+  exact?: boolean;
+  Component: React.ComponentType<unknown>;
+}
+
+const PrivateRoute: React.FC<iProp> = ({ Component, path, exact }) => {
+  const dispatch = useDispatch();
   const { user, isLoading } = useSelector(authSelector);
-  const location = useLocation();
 
   if (isLoading) {
     return <PreLoader />;
   }
 
-  if (!user) {
-    return <Navigate to="/auth/login" state={{ from: location }} replace />;
-  }
-
-  return children;
+  return (
+    <Route
+      path={path}
+      exact={exact}
+      render={() => {
+        if (user) {
+          return <Component />;
+        }
+        dispatch(toggleLoginModal());
+        return <Redirect to="/" />;
+      }}
+    />
+  );
 };
 
 export default PrivateRoute;

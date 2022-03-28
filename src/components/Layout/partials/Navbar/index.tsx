@@ -7,6 +7,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { NavLink, useLocation } from 'react-router-dom';
+import { useRouter } from '../../../../infrastructure/hooks/useRouter';
 import { authSelector } from '../../../../infrastructure/selectors';
 import { logOutUser, toggleLoginModal } from '../../../../ui/Auth/common/redux/Auth.slice';
 import { DeviceSize } from '../../common/data';
@@ -18,7 +19,7 @@ import SideBar from './SideBar';
 const NavBar = () => {
   const dispatch = useDispatch();
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.laptop });
-  const location = useLocation();
+  const {location} = useRouter();
 
   const { user } = useSelector(authSelector);
 

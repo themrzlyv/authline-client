@@ -4,17 +4,17 @@ import { Grid, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
 import ButtonUi from '../../../../components/ButtonUi';
 import InputUi from '../../../../components/InputUi';
 import ModalUi from '../../../../components/ModalUi';
 import { validationSchema } from '../../../../infrastructure/data/YupSchemas/loginSchema';
+import { useRouter } from '../../../../infrastructure/hooks/useRouter';
 import { authSelector } from '../../../../infrastructure/selectors';
 import { loginUser, toggleLoginModal } from '../../common/redux/Auth.slice';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { push } = useRouter();
   const { isLoading, loginModal } = useSelector(authSelector);
 
   const formik = useFormik({
@@ -30,7 +30,7 @@ const Login = () => {
 
   const goToRegister = () => {
     dispatch(toggleLoginModal());
-    navigate('/auth/registration');
+    push('/auth/registration');
   };
 
   return (

@@ -1,3 +1,6 @@
+import CloseIcon from '@mui/icons-material/Close';
+import EmailIcon from '@mui/icons-material/Email';
+import MdPhone from '@mui/icons-material/Phone';
 import {
   Box,
   Drawer,
@@ -8,25 +11,23 @@ import {
   ListItemIcon,
   ListItemText,
   ListSubheader,
-  Typography,
+  Typography
 } from '@mui/material';
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { menuLinks } from './common/data';
-
-import CloseIcon from '@mui/icons-material/Close';
-import MenuLogo from './components/MenuLogo';
 import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { useRouter } from '../../../../infrastructure/hooks/useRouter';
 import { layoutSelector } from '../../../../infrastructure/selectors';
 import { toggleMenuButton } from '../../common/redux/Layout.slice';
+import { menuLinks } from './common/data';
+import MenuLogo from './components/MenuLogo';
 
-import MdPhone from '@mui/icons-material/Phone';
-import EmailIcon from '@mui/icons-material/Email';
+
 
 const SideBar = () => {
   const dispatch = useDispatch();
   const { menu } = useSelector(layoutSelector);
-  const location = useLocation();
+  const { location } = useRouter();
   return (
     <>
       <Drawer open={menu.isOpen} onClose={() => dispatch(toggleMenuButton())}>

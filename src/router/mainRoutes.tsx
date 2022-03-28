@@ -10,22 +10,22 @@ export const mainRoutes: iRoute[] = [
   {
     path: '/',
     name: 'home',
-    element: <Home />,
-    index: true,
+    component: () => <Home />,
+    exact: true,
   },
   {
-    path: '/auth/*',
+    path: '/auth',
     name: 'auth',
-    element: <Auth />,
+    component: () => <Auth />,
   },
   {
-    path: '/profile/*',
+    path: '/profile',
     name: 'profile',
-    element: <Profile />,
+    component: () => <Profile />,
   },
   {
-    path: '*',
+    path: undefined,
     name: 'NotFound',
-    element: <NotFound />,
+    component: () => <NotFound />,
   },
 ];

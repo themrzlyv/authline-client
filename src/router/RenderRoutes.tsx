@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { iRoute } from '../infrastructure/@types/router-types';
 
 interface iProps {
@@ -8,11 +8,11 @@ interface iProps {
 
 const RenderRoutes: React.FC<iProps> = ({ routes }) => {
   return (
-    <Routes>
+    <Switch>
       {routes.map((route: iRoute) => (
-        <Route key={route.name} index={route.index} path={route.path} element={route.element} />
+        <Route key={route.name} exact={route.exact} path={route.path} component={route.component} />
       ))}
-    </Routes>
+    </Switch>
   );
 };
 
