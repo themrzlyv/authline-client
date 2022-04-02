@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { Slide, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import App from './App';
+import AuthProvider from './infrastructure/Global/AuthContext/AuthProvider';
 import { store } from './infrastructure/Global/redux/Store';
 import queryClient from './infrastructure/Global/rQuery/queryClient';
 import reportWebVitals from './reportWebVitals';
@@ -16,7 +17,9 @@ const RootComponent = () => {
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
           <ToastContainer
             theme="colored"
             position="bottom-right"

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(2),
     margin: `${theme.spacing(4)} 0`,
     border: `1px solid ${theme.palette.secondary.main}`,
-  }
+  },
 }));
 
 const Footer = () => {

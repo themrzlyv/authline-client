@@ -5,6 +5,7 @@ export interface iUserType {
   password: string;
   city: string;
   birthDate: string;
+  photo: string;
   number: string;
   role: 'User' | 'Admin';
   posts: any[];

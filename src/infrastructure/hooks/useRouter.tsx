@@ -4,7 +4,7 @@ import queryString from 'query-string';
 
 export function useRouter() {
   const params = useParams<{ page?: string; id?: string }>();
-  const location = useLocation();
+  const location = useLocation<any>();
   const history = useHistory();
   const match = useRouteMatch();
 

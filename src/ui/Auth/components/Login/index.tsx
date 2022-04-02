@@ -1,6 +1,7 @@
 import { NavigateNextTwoTone } from '@mui/icons-material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Grid, Typography } from '@mui/material';
+import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +9,8 @@ import ButtonUi from '../../../../components/ButtonUi';
 import InputUi from '../../../../components/InputUi';
 import ModalUi from '../../../../components/ModalUi';
 import { validationSchema } from '../../../../infrastructure/data/YupSchemas/loginSchema';
+import API from '../../../../infrastructure/Global/axios/axios';
+import Storage from '../../../../infrastructure/Global/Storage';
 import { useRouter } from '../../../../infrastructure/hooks/useRouter';
 import { authSelector } from '../../../../infrastructure/selectors';
 import { loginUser, toggleLoginModal } from '../../common/redux/Auth.slice';
@@ -23,8 +26,27 @@ const Login = () => {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      dispatch(loginUser({ ...values }));
+    onSubmit: async (values) => {
+      // dispatch(loginUser({ ...values }));
+      try {
+        const res = await API.post(
+          '/auth/login',
+          {
+            ...values,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'credentials': 'include',
+            },
+            withCredentials: true,
+          },
+        );
+        Storage.setItem('firstLogin', true);
+        push('/');
+      } catch (error) {
+        return (error as AxiosError)?.response?.data?.error;
+      }
     },
   });
 

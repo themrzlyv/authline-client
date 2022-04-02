@@ -3,10 +3,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { AppBar, Button, Grid, IconButton, Tab, Tabs, Toolbar, Typography } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../../../../infrastructure/Global/AuthContext/AuthProvider';
 import useControlNavLinks from '../../../../infrastructure/hooks/useControlNavLinks';
 import { useRouter } from '../../../../infrastructure/hooks/useRouter';
 import { authSelector } from '../../../../infrastructure/selectors';
@@ -23,9 +24,13 @@ const NavBar = () => {
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.laptop });
   const { location } = useRouter();
 
-  const { user } = useSelector(authSelector);
+  // const { user } = useSelector(authSelector);
 
   const { navLinks } = useControlNavLinks({ links: menuLinks });
+
+  const { token, user } = useContext(AuthContext);
+  console.log('token',token);
+  console.log('user',user);
 
   return (
     <>

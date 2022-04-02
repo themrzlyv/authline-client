@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import { NavLink } from 'react-router-dom';
 import ButtonUi from '../../../../components/ButtonUi';
 import PreLoader from '../../../../components/PreLoader';
+import { CarBrandType } from '../../../../infrastructure/@types/carBrandTypes';
 import { QueryId } from '../../../../infrastructure/data/Queries/QueryId';
 import CarBrandReq from '../../../../infrastructure/Global/APIrequests/CarBrandReq';
 
@@ -27,7 +28,7 @@ const CarBrands = () => {
       <Grid item xs={10} marginX="auto" padding={2}>
         <Grid container>
           {data &&
-            data.carBrands.map((brand: any) => (
+            data.carBrands.map((brand: CarBrandType) => (
               <Grid item xs={3} display="flex" justifyContent="center" my={2} key={brand.id}>
                 <NavLink
                   to={{ pathname: `/brands/${brand.brandName}`, state: { brand } }}
@@ -41,7 +42,7 @@ const CarBrands = () => {
       </Grid>
       <Grid item xs={10} mx="auto" display="flex" justifyContent="flex-end" padding={2}>
         <Pagination
-          count={data?.pages}
+          count={data && data.pages}
           onChange={(e: React.ChangeEvent<unknown>, page: number) => setPage(page)}
           shape="rounded"
         />

@@ -1,4 +1,4 @@
-import { iNavLink } from "../../../common/types";
+import { iNavLink } from '../../../common/types';
 
 export const menuLinks: iNavLink[] = [
   {
