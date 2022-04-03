@@ -37,9 +37,7 @@ const Login = () => {
           {
             headers: {
               'Content-Type': 'application/json',
-              'credentials': 'include',
             },
-            withCredentials: true,
           },
         );
         Storage.setItem('firstLogin', true);

@@ -1,4 +1,4 @@
-import { CarModelType } from "./carModelTypes";
+import { CarModelType } from './carModelTypes';
 
 export interface CarBrandType {
   id: string;

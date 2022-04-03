@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:4000/v1', //'https://authline-server.herokuapp.com/v1',
+  baseURL: 'https://authline-server.herokuapp.com/v1',
+  withCredentials: true,
 });
 
 export default API;

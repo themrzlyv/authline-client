@@ -29,8 +29,8 @@ const NavBar = () => {
   const { navLinks } = useControlNavLinks({ links: menuLinks });
 
   const { token, user } = useContext(AuthContext);
-  console.log('token',token);
-  console.log('user',user);
+  console.log('token', token);
+  console.log('user', user);
 
   return (
     <>
