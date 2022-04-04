@@ -36,6 +36,8 @@ const Login = () => {
           },
           {
             headers: {
+              'Access-Control-Allow-Origin': 'https://authline.herokuapp.com',
+              'Access-Control-Allow-Credentials': true,
               'Content-Type': 'application/json',
             },
           },
