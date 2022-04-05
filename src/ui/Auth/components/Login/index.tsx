@@ -38,6 +38,7 @@ const Login = () => {
             headers: {
               'Content-Type': 'application/json',
               credintials: 'include',
+              mode: 'cors',
             },
           },
         );
