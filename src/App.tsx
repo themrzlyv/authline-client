@@ -14,13 +14,8 @@ const App: React.FC = () => {
   const dispatch = useDispatch();
   const { error } = useSelector(authSelector);
   React.useEffect(() => {
-    const token = Storage.getItem('jwt-token');
-    if (token) {
-      dispatch(fetchUser());
-    }
-
     if (error) {
-      Storage.removeItem('jwt-token');
+      Storage.removeItem('firstLogin');
     }
   }, [error]);
   return (

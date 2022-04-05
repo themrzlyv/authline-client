@@ -11,12 +11,14 @@ import ModalUi from '../../../../components/ModalUi';
 import { validationSchema } from '../../../../infrastructure/data/YupSchemas/loginSchema';
 import API from '../../../../infrastructure/Global/axios/axios';
 import Storage from '../../../../infrastructure/Global/Storage';
+import { useAuth } from '../../../../infrastructure/hooks/useAuth';
 import { useRouter } from '../../../../infrastructure/hooks/useRouter';
 import { authSelector } from '../../../../infrastructure/selectors';
 import { loginUser, toggleLoginModal } from '../../common/redux/Auth.slice';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const { signIn } = useAuth();
   const { push } = useRouter();
   const { isLoading, loginModal } = useSelector(authSelector);
 
@@ -26,27 +28,8 @@ const Login = () => {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      // dispatch(loginUser({ ...values }));
-      try {
-        const res = await API.post(
-          '/auth/login',
-          {
-            ...values,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              credintials: 'include',
-              mode: 'cors',
-            },
-          },
-        );
-        Storage.setItem('firstLogin', true);
-        push('/');
-      } catch (error) {
-        return (error as AxiosError)?.response?.data?.error;
-      }
+    onSubmit: async ({ email, password }) => {
+      signIn(email, password);
     },
   });
 

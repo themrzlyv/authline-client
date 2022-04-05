@@ -6,6 +6,10 @@ const API = axios.create({
       ? 'http://localhost:4000/v1'
       : 'https://authline-server.herokuapp.com/v1',
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    creditials: 'include',
+  }
 });
 
 export default API;

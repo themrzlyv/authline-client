@@ -6,9 +6,9 @@ import { Provider } from 'react-redux';
 import { Slide, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import App from './App';
-import AuthProvider from './infrastructure/Global/AuthContext/AuthProvider';
 import { store } from './infrastructure/Global/redux/Store';
 import queryClient from './infrastructure/Global/rQuery/queryClient';
+import { AuthProvider } from './infrastructure/hooks/useAuth';
 import reportWebVitals from './reportWebVitals';
 import { theme } from './Theme/theme';
 

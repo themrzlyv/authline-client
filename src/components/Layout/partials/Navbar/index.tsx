@@ -3,11 +3,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { AppBar, Button, Grid, IconButton, Tab, Tabs, Toolbar, Typography } from '@mui/material';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { NavLink } from 'react-router-dom';
-import { AuthContext } from '../../../../infrastructure/Global/AuthContext/AuthProvider';
+import { useAuth } from '../../../../infrastructure/hooks/useAuth';
 import useControlNavLinks from '../../../../infrastructure/hooks/useControlNavLinks';
 import { useRouter } from '../../../../infrastructure/hooks/useRouter';
 import { authSelector } from '../../../../infrastructure/selectors';
@@ -21,16 +21,13 @@ import SideBar from './SideBar';
 
 const NavBar = () => {
   const dispatch = useDispatch();
+  const { signOut } = useAuth();
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.laptop });
   const { location } = useRouter();
 
-  // const { user } = useSelector(authSelector);
+  const { user } = useSelector(authSelector);
 
   const { navLinks } = useControlNavLinks({ links: menuLinks });
-
-  const { token, user } = useContext(AuthContext);
-  console.log('token', token);
-  console.log('user', user);
 
   return (
     <>
@@ -95,7 +92,7 @@ const NavBar = () => {
             >
               <IconButton>
                 {user ? (
-                  <LogoutIcon onClick={() => dispatch(logOutUser())} />
+                  <LogoutIcon onClick={() => signOut()} />
                 ) : (
                   <LoginIcon onClick={() => dispatch(toggleLoginModal())} />
                 )}
