@@ -3,9 +3,9 @@ import reduxLogger from 'redux-logger';
 import rootReducer from './rootReducer';
 
 export const store = configureStore({
-  devTools: process.env.NODE_ENV !== 'production',
+  devTools: process.env.REACT_APP_NODE_ENV !== 'production',
   middleware: (getDefaultMiddleware) =>
-    process.env.NODE_ENV !== 'production'
+    process.env.REACT_APP_NODE_ENV !== 'production'
       ? getDefaultMiddleware().concat(reduxLogger)
       : getDefaultMiddleware(),
   reducer: {
