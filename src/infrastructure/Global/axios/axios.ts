@@ -9,7 +9,7 @@ const API = axios.create({
   headers: {
     'Content-Type': 'application/json',
     creditials: 'include',
-  }
+  },
 });
 
 export default API;

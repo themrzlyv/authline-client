@@ -35,9 +35,12 @@ export const loginUser = createAsyncThunk(
   },
 );
 
-export const logOutUser = createAsyncThunk('user/logOutUser', async (accessToken: string, { rejectWithValue }) => {
-  return await UserReq.logOutUser(accessToken,rejectWithValue);
-});
+export const logOutUser = createAsyncThunk(
+  'user/logOutUser',
+  async (accessToken: string, { rejectWithValue }) => {
+    return await UserReq.logOutUser(accessToken, rejectWithValue);
+  },
+);
 
 const authSlice = createSlice({
   name: 'Auth',
