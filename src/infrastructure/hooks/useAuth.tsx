@@ -30,7 +30,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
 const Authentication = () => {
   const dispatch = useDispatch();
-  const { accessToken } = useSelector(authSelector);
+  const { accessToken, error } = useSelector(authSelector);
   const isAuthenticated = Boolean(Storage.getItem('firstLogin'));
 
   React.useEffect(() => {
@@ -46,6 +46,12 @@ const Authentication = () => {
       }
     }
   }, [accessToken]);
+
+  React.useEffect(() => {
+    if (error) {
+      Storage.removeItem('firstLogin');
+    }
+  },[error]);
 
   const signIn = (email: string, password: string) => dispatch(loginUser({ email, password }));
 

@@ -4,7 +4,7 @@ export interface iUserType {
   email: string;
   password: string;
   city: string;
-  birthDate: string;
+  birthday: string;
   photo: string;
   number: string;
   role: 'User' | 'Admin';

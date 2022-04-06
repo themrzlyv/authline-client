@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { iNavLink } from '../../components/Layout/common/types';
-import Storage from '../Global/Storage';
 import { authSelector } from '../selectors';
 
 interface iProp {
@@ -9,18 +8,17 @@ interface iProp {
 }
 
 const useControlNavLinks = ({ links }: iProp) => {
-  const token = Storage.getItem('jwt-token');
   const { user } = useSelector(authSelector);
 
   const [navLinks, setNavLinks] = React.useState(links);
 
   React.useEffect(() => {
-    if (!token && !user) {
+    if (!user) {
       setNavLinks((prevLinks) =>
         prevLinks.filter((link) => link.key !== 'profile' && link.key !== 'admin'),
       );
     }
-    if (token && user) {
+    if (user) {
       setNavLinks((prevLinks) => [
         ...prevLinks,
         {
@@ -40,7 +38,7 @@ const useControlNavLinks = ({ links }: iProp) => {
         },
       ]);
     }
-  }, [token, user]);
+  }, [user]);
 
   return { navLinks };
 };

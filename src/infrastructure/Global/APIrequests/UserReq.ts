@@ -2,7 +2,6 @@ import { AxiosError } from 'axios';
 import { iRegistrationUserType } from '../../@types/registrationUserTypes';
 import { iUserType } from '../../@types/userType';
 import API from '../axios/axios';
-import Storage from '../Storage';
 
 export default class UserReq {
   public static async getAccessToken(
@@ -40,7 +39,7 @@ export default class UserReq {
       const res = await API.post('auth/login', {
         ...data,
       });
-      Storage.setItem('firstLogin', true);
+      console.log(res.data);
       return res.data;
     } catch (error) {
       return rejectWithValue((error as AxiosError)?.response?.data?.error);

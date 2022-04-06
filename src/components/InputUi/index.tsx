@@ -7,10 +7,10 @@ type Props = {
   label?: string;
   fullWidth?: boolean;
   type?: string;
-  value: string;
+  value: string | any;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   error: boolean;
-  helperText: string;
+  helperText: string | any;
   InputLabelProps?: {
     shrink: boolean;
   };

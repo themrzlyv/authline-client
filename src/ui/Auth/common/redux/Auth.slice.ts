@@ -60,14 +60,14 @@ const authSlice = createSlice({
         state.isLoading = false;
         Storage.removeItem('firstLogin');
         if (action.payload) {
-          toast.success(action.payload.message);
+          toast.success(action.payload.message, { toastId: QueryId.LOGOUT_SUCCESS });
         }
       },
     );
-    builder.addCase(logOutUser.rejected, (state, action: PayloadAction<any>) => {
-      state.error = action.payload;
+    builder.addCase(logOutUser.rejected, (state, action: PayloadAction<unknown>) => {
+      state.error = action.payload as string;
       state.isLoading = false;
-      toast.error(action.payload, { toastId: ErrorQuery.login });
+      toast.error(action.payload, { toastId: ErrorQuery.LOGOUT });
     });
 
     builder.addCase(
@@ -78,12 +78,12 @@ const authSlice = createSlice({
         }
       },
     );
-    builder.addCase(getAccessToken.rejected, (state, action: PayloadAction<any>) => {
+    builder.addCase(getAccessToken.rejected, (state, action: PayloadAction<unknown>) => {
       state.user = null;
       state.accessToken = null;
-      state.error = action.payload;
+      state.error = action.payload as string;
       state.isLoading = false;
-      toast.error(action.payload, { toastId: ErrorQuery.login });
+      toast.error(action.payload, { toastId: ErrorQuery.TOKEN_ERROR });
     });
 
     builder.addCase(fetchUser.pending, (state) => {
@@ -98,11 +98,11 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     });
-    builder.addCase(fetchUser.rejected, (state, action: PayloadAction<any>) => {
+    builder.addCase(fetchUser.rejected, (state, action: PayloadAction<unknown>) => {
       state.user = null;
-      state.error = action.payload;
+      state.error = action.payload as string;
       state.isLoading = false;
-      toast.error(action.payload, { toastId: ErrorQuery.login });
+      toast.error(action.payload, { toastId: ErrorQuery.USER_ERROR });
     });
 
     builder.addCase(loginUser.pending, (state) => {
@@ -116,6 +116,7 @@ const authSlice = createSlice({
         if (action.payload) {
           state.user = action.payload.user;
           state.accessToken = action.payload.accessToken;
+          Storage.setItem('firstLogin', true);
         }
         state.isLoading = false;
         state.error = null;
@@ -123,12 +124,12 @@ const authSlice = createSlice({
         toast.success('Logged in successfully', { toastId: QueryId.LOGIN_SUCCESS });
       },
     );
-    builder.addCase(loginUser.rejected, (state, action: PayloadAction<any>) => {
+    builder.addCase(loginUser.rejected, (state, action: PayloadAction<unknown>) => {
       state.user = null;
       state.accessToken = null;
-      state.error = action.payload;
+      state.error = action.payload as string;
       state.isLoading = false;
-      toast.error(action.payload, { toastId: ErrorQuery.login });
+      toast.error(action.payload, { toastId: ErrorQuery.LOGIN });
     });
   },
 });
